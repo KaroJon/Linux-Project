@@ -1,0 +1,57 @@
+Project for Linux Fundamentals
+by
+Name: Oghenekaro Omohovie
+Student code: S6
+
+#!/bin/bash
+
+echo -e "pick your option :  
+
+a) Display the Linux version
+b) Display the private IP address, public IP address, and the default gateway
+c) Display the hard disk size; free and used space
+d) Display the top five (5) directories and their size
+e) CPU usage; refresh every 10 seconds \n "
+
+
+read option
+case $option in
+
+a) 
+echo "Your linux version is : "
+sleep  2
+uname -r
+;;
+
+b) 
+echo "Your private IP address is: "
+sleep 2
+ifconfig | grep broadcast | awk '{print $2}'
+sleep 2
+
+echo "Your public IP address is: "
+curl ifconfig.co
+sleep 2
+
+echo "Your default gateway is: "
+sleep 2
+ip route | head -1 | awk '{print $3}'
+;;
+
+c) echo "View your hard disk details below: "
+sleep 2
+df -h --output=source,size,used,avail 
+;;
+
+d) 
+echo " Here are your top 5 directories and their sizes: "
+sleep 2
+du -hs * | sort -d | head -5
+;;
+
+e) 
+ echo "your CPU usage at an interval of 10 seconds is: "
+top -d 10 | grep %Cpu
+;;
+esac
+
